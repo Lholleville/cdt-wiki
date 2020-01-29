@@ -89,6 +89,6 @@ class Character extends Model
 
     public function events()
     {
-        return $this->belongsToMany('App\Event', null, 'id_character', 'id');
+        return $this->belongsToMany('App\Event', null, 'id', 'id');
     }
 }

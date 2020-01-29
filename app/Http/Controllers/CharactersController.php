@@ -23,7 +23,8 @@ class CharactersController extends Controller
                 'weapons'     => $c->weapons,
                 'places'      => $c->places,
                 'events'      => $c->events,
-                'religions'   => $c->religions
+                'religions'   => $c->religions,
+                'titles'      => $c->titles
             ];
         }
         return $characters;
