@@ -63,7 +63,7 @@ class Character extends Model
      */
     public function religions()
     {
-        return $this->BelongsToMany('App\Religion',  null, 'id_character', 'id');
+        return $this->BelongsToMany('App\Religion',  null, 'id_character', 'id')->withPivot(['conversion_date']);
     }
 
     /**

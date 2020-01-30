@@ -26,12 +26,12 @@ class AssociateTableSeeder extends Seeder
             [
                 'id' => $heliotheique->id,
                 'id_character' => $chimene->id,
-                'conversion_date' => $chimene->birthdate
+                'conversion_date' => $chimene->birthday
             ],
             [
                 'id' => $heliotheique->id,
                 'id_character' => $deoteria->id,
-                'conversion_date' => $deoteria->birthdate
+                'conversion_date' => $deoteria->birthday
             ]
         );
     }
