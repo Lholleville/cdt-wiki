@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Characters table seeded!');
         $this->call(WeaponsTableSeeder::class);
         $this->command->info('Weapons table seeded!');
+        $this->call(ReligionsTableSeeder::class);
+        $this->command->info('Religions table seeded');
         $this->call(AssociateTableSeeder::class);
         $this->command->info('Association between tables seeded!');
     }

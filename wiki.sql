@@ -2,6 +2,27 @@
 #        Script MySQL.
 #------------------------------------------------------------
 
+#------------------------------------------------------------
+# Drop: tables
+#------------------------------------------------------------
+
+DROP TABLE IF EXISTS character_event;
+DROP TABLE IF EXISTS character_title;
+DROP TABLE IF EXISTS character_religion;
+DROP TABLE IF EXISTS character_weapon;
+DROP TABLE IF EXISTS character_place;
+DROP TABLE IF EXISTS character_relationship;
+DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS religions;
+DROP TABLE IF EXISTS weapons;
+DROP TABLE IF EXISTS titles;
+DROP TABLE IF EXISTS blazons;
+DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS event_type;
+DROP TABLE IF EXISTS relationship_type;
+DROP TABLE IF EXISTS places;
+DROP TABLE IF EXISTS place_type;
+
 
 #------------------------------------------------------------
 # Table: place_type
@@ -103,6 +124,7 @@ CREATE TABLE blazons(
 # Table: characters
 #------------------------------------------------------------
 
+
 CREATE TABLE characters(
         id                   Int  Auto_increment  NOT NULL ,
         firstname            Varchar (250) NOT NULL ,
@@ -116,7 +138,6 @@ CREATE TABLE characters(
         history              Text NOT NULL ,
         id_blazon            Int
 	,CONSTRAINT characters_PK PRIMARY KEY (id)
-
 	,CONSTRAINT character_blazon_FK FOREIGN KEY (id_blazon) REFERENCES blazons(id)
 )ENGINE=InnoDB;
 
@@ -227,7 +248,7 @@ CREATE TABLE events(
 	,CONSTRAINT event_PK PRIMARY KEY (id)
 
 	,CONSTRAINT event_event_type_FK FOREIGN KEY (id_event_type) REFERENCES event_type(id)
-	,CONSTRAINT event_place0_FK FOREIGN KEY (id_places) REFERENCES places(id)
+	,CONSTRAINT event_place0_FK FOREIGN KEY (id_place) REFERENCES places(id)
 )ENGINE=InnoDB;
 
 

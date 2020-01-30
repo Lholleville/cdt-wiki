@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class CharactersTableSeeder extends Seeder
 {
     public function run(){
+        DB::table('character_religion')->delete();
         DB::table('character_weapon')->delete();
         DB::table('characters')->delete();
         Character::create(
