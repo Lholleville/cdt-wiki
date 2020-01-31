@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 class CharactersController extends Controller
 {
     public function index(){
+
+        $car = Character::where('firstname', 'Ildibad')->first();
+        dd($car);
+
         $characters = [];
         foreach(Character::All() as $c){
 
             $religions = [];
             $weapons = [];
+            $titles= [];
 
             foreach($c->weapons as $w){
                 $weapons[] = [
@@ -34,6 +39,16 @@ class CharactersController extends Controller
                 ];
             }
 
+            foreach($c->titles as $t){
+                $titles[] = [
+                    'id' => $t->id,
+                    'name' => $t->name,
+                    'description' => $t->description,
+                    'parent_id' => $t->parent_id,
+                    'start_date' => $t->pivot->start_date,
+                    'end_date' => ($t->pivot->end_date == null) ? ($c->deathdate == null) ? null : $c->deathdate : $t->pivot->end_date
+                ];
+            }
 
             $characters[] = [
                 'firstname' => $c->firstname,
@@ -49,7 +64,8 @@ class CharactersController extends Controller
                 'places'      => $c->places,
                 'events'      => $c->events,
                 'religions'   => $religions,
-                'titles'      => $c->titles
+                'titles'      => $titles,
+                'age'         => $c->age
             ];
         }
         return $characters;

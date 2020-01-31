@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -29,6 +30,16 @@ class Character extends Model
 {
 
     public $timestamps = false;
+
+    public function getAgeAttribute(){
+        $today = Carbon::createFromDate(1028, 6, 15, 'Europe/Paris');
+        $birthdate = Carbon::createFromFormat("Y-m-d", $this->attributes["birthday"]);
+        if($this->is_dead && $this->deathdate != null){
+            $deathdate = Carbon::createFromFormat("Y-m-d", $this->attributes["deathdate"]);
+            return $deathdate->diffInYears($birthdate);
+        }
+        return $today->diffInYears($birthdate);
+    }
     /**
      * @var array
      */
@@ -63,7 +74,7 @@ class Character extends Model
      */
     public function religions()
     {
-        return $this->BelongsToMany('App\Religion',  null, 'id_character', 'id')->withPivot(['conversion_date']);
+        return $this->BelongsToMany('App\Religion',  null, 'id_character', 'id_religion')->withPivot(['conversion_date']);
     }
 
     /**
@@ -71,7 +82,7 @@ class Character extends Model
      */
     public function titles()
     {
-        return $this->belongsToMany('App\Title', null, 'id', 'id_title');
+        return $this->belongsToMany('App\Title', null, 'id_character', 'id_title')->withPivot(['start_date', 'end_date']);
     }
 
     /**
@@ -79,16 +90,16 @@ class Character extends Model
      */
     public function weapons()
     {
-        return $this->belongsToMany('App\Weapon', null, 'id_character', 'id');
+        return $this->belongsToMany('App\Weapon', null, 'id_character', 'id_weapon');
     }
 
     public function places()
     {
-        return $this->belongsToMany('App\Place', null, 'id_character', 'id');
+        return $this->belongsToMany('App\Place', null, 'id_character', 'id_place');
     }
 
     public function events()
     {
-        return $this->belongsToMany('App\Event', null, 'id', 'id');
+        return $this->belongsToMany('App\Event', null, 'id_character', 'id_event');
     }
 }

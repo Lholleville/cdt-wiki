@@ -11,7 +11,10 @@ class CharactersTableSeeder extends Seeder
     public function run(){
         DB::table('character_religion')->delete();
         DB::table('character_weapon')->delete();
+        DB::table('character_title')->delete();
         DB::table('characters')->delete();
+        DB::table('religions')->delete();
+        DB::table('titles')->delete();
         Character::create(
             [
                 'firstname' => 'Déotéria',
@@ -36,6 +39,19 @@ class CharactersTableSeeder extends Seeder
                 'physical_description' => "Cheveux roux, longs, lisses. Oreilles décollées, petit nez pointu. Yeux marron, petite taille. Marque bleue dans le dos, une arabesque en forme de spirale.",
                 'personality' => "Craintive, pieuse, volonté d’aider, elle est assez stupide.",
                 'history'     => "Elle vit à la Vaupalière"
+            ]
+        );
+        Character::create(
+            [
+                'firstname' => 'Ildibad',
+                'lastname'  => 'Ebroïn',
+                'birthday'  => Carbon::createFromDate(1002, 6, 22, 'Europe/Paris'),
+                'image'     => null,
+                'is_dead'   => true,
+                'deathdate' => Carbon::createFromDate(1027, 8, 30, 'Europe/Paris'),
+                'physical_description' => "Taille moyenne, cheveux mi-longs, noirs et bouclés, yeux verts.",
+                'personality' => "Fou.",
+                'history'     => "Il vit à la Viépierre"
             ]
         );
     }

@@ -147,12 +147,12 @@ CREATE TABLE characters(
 #------------------------------------------------------------
 
 CREATE TABLE character_religion(
-        id              Int NOT NULL ,
+        id_religion     Int NOT NULL ,
         id_character    Int NOT NULL ,
         conversion_date Date
-	,CONSTRAINT character_religion_PK PRIMARY KEY (id,id_character)
+	,CONSTRAINT character_religion_PK PRIMARY KEY (id_religion ,id_character)
 
-	,CONSTRAINT character_religion_religion_FK FOREIGN KEY (id) REFERENCES religions(id)
+	,CONSTRAINT character_religion_religion_FK FOREIGN KEY (id_religion) REFERENCES religions(id)
 	,CONSTRAINT character_religion_character0_FK FOREIGN KEY (id_character) REFERENCES characters(id)
 )ENGINE=InnoDB;
 
@@ -162,11 +162,11 @@ CREATE TABLE character_religion(
 #------------------------------------------------------------
 
 CREATE TABLE character_weapon(
-        id           Int NOT NULL ,
+        id_weapon    Int NOT NULL ,
         id_character Int NOT NULL
-	,CONSTRAINT character_weapon_PK PRIMARY KEY (id,id_character)
+	,CONSTRAINT character_weapon_PK PRIMARY KEY (id_weapon,id_character)
 
-	,CONSTRAINT character_weapon_weapon_FK FOREIGN KEY (id) REFERENCES weapons(id)
+	,CONSTRAINT character_weapon_weapon_FK FOREIGN KEY (id_weapon) REFERENCES weapons(id)
 	,CONSTRAINT character_weapon_character0_FK FOREIGN KEY (id_character) REFERENCES characters(id)
 )ENGINE=InnoDB;
 
@@ -176,16 +176,16 @@ CREATE TABLE character_weapon(
 #------------------------------------------------------------
 
 CREATE TABLE character_place(
-        id                 Int NOT NULL ,
+        id_place           Int NOT NULL ,
         id_character       Int NOT NULL ,
         is_birthplace      Bool NOT NULL ,
         is_deathplace      Bool NOT NULL ,
         is_weddingplace    Bool NOT NULL ,
         is_knightplace     Bool NOT NULL ,
         is_ordinationplace Bool NOT NULL
-	,CONSTRAINT character_place_PK PRIMARY KEY (id,id_character)
+	,CONSTRAINT character_place_PK PRIMARY KEY (id_place,id_character)
 
-	,CONSTRAINT character_place_place_FK FOREIGN KEY (id) REFERENCES places(id)
+	,CONSTRAINT character_place_place_FK FOREIGN KEY (id_place) REFERENCES places(id)
 	,CONSTRAINT character_place_character0_FK FOREIGN KEY (id_character) REFERENCES characters(id)
 )ENGINE=InnoDB;
 
@@ -195,12 +195,12 @@ CREATE TABLE character_place(
 #------------------------------------------------------------
 
 CREATE TABLE character_relationship(
-        id                   Int NOT NULL ,
+        id_character_1       Int NOT NULL ,
         id_character         Int NOT NULL ,
         id_relationship_type Int NOT NULL
-	,CONSTRAINT character_relationship_PK PRIMARY KEY (id,id_character,id_relationship_type)
+	,CONSTRAINT character_relationship_PK PRIMARY KEY (id_character_1,id_character,id_relationship_type)
 
-	,CONSTRAINT character_relationship_character_FK FOREIGN KEY (id) REFERENCES characters(id)
+	,CONSTRAINT character_relationship_character_FK FOREIGN KEY (id_character_1) REFERENCES characters(id)
 	,CONSTRAINT character_relationship_character0_FK FOREIGN KEY (id_character) REFERENCES characters(id)
 	,CONSTRAINT character_relationship_relationship_type1_FK FOREIGN KEY (id_relationship_type) REFERENCES relationship_type(id)
 )ENGINE=InnoDB;
@@ -211,11 +211,13 @@ CREATE TABLE character_relationship(
 #------------------------------------------------------------
 
 CREATE TABLE character_title(
-        id       Int NOT NULL ,
-        id_title Int NOT NULL
-	,CONSTRAINT character_title_PK PRIMARY KEY (id,id_title)
+        id_character Int NOT NULL ,
+        id_title Int NOT NULL ,
+        start_date    Date ,
+        end_date      Date
+	,CONSTRAINT character_title_PK PRIMARY KEY (id_character,id_title)
 
-	,CONSTRAINT character_title_character_FK FOREIGN KEY (id) REFERENCES characters(id)
+	,CONSTRAINT character_title_character_FK FOREIGN KEY (id_character) REFERENCES characters(id)
 	,CONSTRAINT character_title_title0_FK FOREIGN KEY (id_title) REFERENCES titles(id)
 )ENGINE=InnoDB;
 
@@ -257,10 +259,10 @@ CREATE TABLE events(
 #------------------------------------------------------------
 
 CREATE TABLE character_event(
-        id       Int NOT NULL ,
+        id_character       Int NOT NULL ,
         id_event Int NOT NULL
-	,CONSTRAINT character_event_PK PRIMARY KEY (id,id_event)
+	,CONSTRAINT character_event_PK PRIMARY KEY (id_character,id_event)
 
-	,CONSTRAINT character_event_character_FK FOREIGN KEY (id) REFERENCES characters(id)
+	,CONSTRAINT character_event_character_FK FOREIGN KEY (id_character) REFERENCES characters(id)
 	,CONSTRAINT character_event_Event0_FK FOREIGN KEY (id_event) REFERENCES events(id)
 )ENGINE=InnoDB;

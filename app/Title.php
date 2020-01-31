@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Title extends Model
 {
+
+    public $timestamps = false;
     /**
      * @var array
      */
@@ -23,6 +25,6 @@ class Title extends Model
      */
     public function characters()
     {
-        return $this->belongsToMany('App\Character', null, 'id_title', 'id');
+        return $this->belongsToMany('App\Character', null, 'id_title', 'id_character')->withPivot(['start_date', 'end_date']);
     }
 }
