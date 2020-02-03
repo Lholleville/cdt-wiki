@@ -19,6 +19,8 @@ class Blazon extends Model
      */
     protected $fillable = ['name', 'description', 'image', 'parent_id'];
 
+
+    public $timestamps = false;
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

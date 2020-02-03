@@ -86,7 +86,9 @@ CREATE TABLE weapons(
 
 CREATE TABLE relationship_type(
         id   Int  Auto_increment  NOT NULL ,
-        name Varchar (250) NOT NULL
+        name Varchar (250) NOT NULL,
+        masculine Varchar (250),
+        feminine Varchar (250)
 	,CONSTRAINT relationship_type_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
@@ -129,6 +131,7 @@ CREATE TABLE characters(
         id                   Int  Auto_increment  NOT NULL ,
         firstname            Varchar (250) NOT NULL ,
         lastname             Varchar (250) ,
+        sexe                 Bool,
         birthday             Date ,
         image                Varchar (250) ,
         is_dead              Bool NOT NULL ,
@@ -141,6 +144,17 @@ CREATE TABLE characters(
 	,CONSTRAINT character_blazon_FK FOREIGN KEY (id_blazon) REFERENCES blazons(id)
 )ENGINE=InnoDB;
 
+#------------------------------------------------------------
+# Table: nicknames
+#------------------------------------------------------------
+
+CREATE TABLE nicknames(
+        id                   Int  Auto_increment  NOT NULL ,
+        name                 Varchar (250) NOT NULL,
+        id_character         Int
+    ,CONSTRAINT nicknames_PK PRIMARY KEY (id)
+    ,CONSTRAINT nicknames_character_FK FOREIGN KEY (id_character) REFERENCES characters(id)
+)ENGINE=InnoDB;
 
 #------------------------------------------------------------
 # Table: character_religion

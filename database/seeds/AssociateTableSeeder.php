@@ -17,10 +17,21 @@ class AssociateTableSeeder extends Seeder
 
         $heliotheique = Religion::where('name', 'Culte Héliothéique')->first();
 
+        $sibling = \App\Relationship::where('name', 'siblings')->first();
+
+        $epee = Weapon::where('name', 'Épée')->first();
+        $hache = Weapon::where('name', 'Hache')->first();
+
         DB::table('character_weapon')->insert(
             [
-                'id_weapon' => Weapon::first()->id,
-                'id_character' => $deoteria->id
+                [
+                    'id_weapon' => $epee->id,
+                    'id_character' => $deoteria->id
+                ],
+                [
+                    'id_weapon' => $hache->id,
+                    'id_character' => $deoteria->id
+                ]
             ]
         );
 
@@ -49,13 +60,26 @@ class AssociateTableSeeder extends Seeder
                 [
                     'id_character' => $deoteria->id,
                     'id_title' => \App\Title::where('name', 'Princesse de Neufcâstel')->first()->id,
+                    'start_date' => null,
+                    'end_date' => null
                 ],
                 [
                     'id_character' => $ildibad->id,
                     'id_title' => \App\Title::where('name', 'Roi de Neufcâstel')->first()->id,
                     'start_date' => \Carbon\Carbon::createFromDate(1027, 8, 02, 'Europe/Paris'),
+                    'end_date' => null
                 ]
             ]
+        );
+
+        DB::table('character_relationship')->insert(
+          [
+              [
+                  'id_character_1' => $ildibad->id,
+                  'id_character'   => $deoteria->id,
+                  'id_relationship_type' => $sibling->id
+              ],
+          ]
         );
     }
 }

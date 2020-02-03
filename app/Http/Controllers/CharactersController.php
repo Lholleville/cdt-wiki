@@ -9,15 +9,13 @@ class CharactersController extends Controller
 {
     public function index(){
 
-        $car = Character::where('firstname', 'Ildibad')->first();
-        dd($car);
-
         $characters = [];
         foreach(Character::All() as $c){
 
             $religions = [];
             $weapons = [];
             $titles= [];
+            $nicknames = [];
 
             foreach($c->weapons as $w){
                 $weapons[] = [
@@ -50,6 +48,11 @@ class CharactersController extends Controller
                 ];
             }
 
+            foreach($c->nicknames as $n){
+                $nicknames[] =  $n->name;
+            }
+
+
             $characters[] = [
                 'firstname' => $c->firstname,
                 'lastname'  => $c->lastname,
@@ -65,7 +68,10 @@ class CharactersController extends Controller
                 'events'      => $c->events,
                 'religions'   => $religions,
                 'titles'      => $titles,
-                'age'         => $c->age
+                'relationships' => $c->relationships,
+                'age'         => $c->age,
+                'blazon'      => $c->blazons,
+                'nicknames'   => $nicknames
             ];
         }
         return $characters;

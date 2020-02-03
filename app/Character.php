@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $id
@@ -61,12 +62,26 @@ class Character extends Model
         return $this->hasMany('App\Place', 'id_character');
     }
 
-    /**
-     * @return HasMany
-     */
-    public function relationships()
+    public function nicknames(){
+        return $this->hasMany('App\Nickname', 'id_character');
+    }
+
+    public function getRelationshipsAttribute()
     {
-        return $this->hasMany('App\Character', 'id_character');
+        $relationship = [];
+        $rel = DB::table('character_relationship')->select(['id_character', 'id_character_1', 'id_relationship_type'])->where('id_character', $this->id)->orWhere('id_character_1', $this->id)->get();
+
+        foreach ($rel as $r){
+            if($this->id == $r->id_character){
+                $relation = Character::findOrFail($r->id_character_1);
+            }else{
+                $relation = Character::findOrFail($r->id_character);
+            }
+            $rel_type = Relationship::find($r->id_relationship_type);
+            $relationtranslated = ($relation->sexe) ? $rel_type->feminine  : $rel_type->masculine;
+            $relationship[] = ['name' => $relation->firstname.' '.$relation->lastname, 'rel_type' => $relationtranslated];
+        }
+        return $relationship;
     }
 
     /**
