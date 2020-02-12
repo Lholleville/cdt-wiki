@@ -36,8 +36,13 @@ class Event extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function place()
+    public function places()
     {
         return $this->belongsTo('App\Place', 'id_place');
+    }
+
+    public function types()
+    {
+        return $this->belongsTo("App\EventType", "id");
     }
 }

@@ -81,5 +81,18 @@ class AssociateTableSeeder extends Seeder
               ],
           ]
         );
+
+        DB::table('character_event')->insert(
+          [
+              [
+                  'id_character' => $ildibad->id,
+                  'id_event' => App\Event::where('name', 'Mariage royal de Neufcâstel')->first()->id,
+              ],
+              [
+                  'id_character' => $chimene->id,
+                  'id_event' => App\Event::where('name', 'Mariage royal de Neufcâstel')->first()->id,
+              ]
+          ]
+        );
     }
 }

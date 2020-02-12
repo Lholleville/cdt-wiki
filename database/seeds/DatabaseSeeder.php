@@ -27,6 +27,14 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Relation table seeded!');
         $this->call(NicknamesTableSeeder::class);
         $this->command->info('Nicknames table seeded!');
+        $this->call(PlaceTypesTableSeeder::class);
+        $this->command->info('place_type table seeded!');
+        $this->call(PlacesTableSeeder::class);
+        $this->command->info('place table seeded!');
+        $this->call(EventTypeTableSeeder::class);
+        $this->command->info('event_type table seeded!');
+        $this->call(EventsTableSeeder::class);
+        $this->command->info('events table seeded!');
         $this->call(AssociateTableSeeder::class);
         $this->command->info('Association between tables seeded!');
     }

@@ -16,6 +16,7 @@ class CharactersController extends Controller
             $weapons = [];
             $titles= [];
             $nicknames = [];
+            $events = [];
 
             foreach($c->weapons as $w){
                 $weapons[] = [
@@ -52,6 +53,18 @@ class CharactersController extends Controller
                 $nicknames[] =  $n->name;
             }
 
+            foreach($c->events as $e){
+                $events[] = [
+                    "id" => $e->id,
+                    "name" => $e->name,
+                    "description" => $e->description,
+                    "history" => $e->history,
+                    "start_date" => $e->start_date,
+                    "end_date" => $e->end_date,
+                    "type" => $e->types->name
+                ];
+            }
+
 
             $characters[] = [
                 'firstname' => $c->firstname,
@@ -64,8 +77,7 @@ class CharactersController extends Controller
                 'personality' => $c->personality,
                 'history'     => $c->history,
                 'weapons'     => $weapons,
-                'places'      => $c->places,
-                'events'      => $c->events,
+                'events'      => $events,
                 'religions'   => $religions,
                 'titles'      => $titles,
                 'relationships' => $c->relationships,
