@@ -89,7 +89,7 @@ class AssociateTableSeeder extends Seeder
                   'id_event' => App\Event::where('name', 'Mariage royal de Neufcâstel')->first()->id,
               ],
               [
-                  'id_character' => $chimene->id,
+                  'id_character' => $deoteria->id,
                   'id_event' => App\Event::where('name', 'Mariage royal de Neufcâstel')->first()->id,
               ]
           ]
